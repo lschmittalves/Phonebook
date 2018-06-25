@@ -1,2 +1,2 @@
 # Phonebook
-Simple shell phonebook in python
+Simple phonebook shell in python
