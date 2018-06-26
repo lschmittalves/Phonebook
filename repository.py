@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class PhonebookRepository:
@@ -8,6 +9,9 @@ class PhonebookRepository:
         self.__load()
 
     def __load(self):
+        if not os.path.isfile('phonebook.json'):
+            self.__commit()
+
         with open("phonebook.json", "r") as read_file:
             self.objects = json.load(read_file)
 

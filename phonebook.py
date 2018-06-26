@@ -1,5 +1,5 @@
 from cement.core.foundation import CementApp
-from .controller import PhonebookShellController
+from controller import PhonebookShellController
 
 
 class PhonebookApp(CementApp):

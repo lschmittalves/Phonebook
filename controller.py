@@ -1,6 +1,6 @@
 from cement.core.controller import CementBaseController, expose
-from .repository import PhonebookRepository
-from .models import PhoneBookItem
+from repository import PhonebookRepository
+from models import PhoneBookItem
 
 
 class PhonebookShellController(CementBaseController):
