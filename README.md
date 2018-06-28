@@ -1,5 +1,5 @@
 # Phonebook
-Simple phonebook shell in python
+Simple phonebook shell in python with persistent data
 
 ## Instructions
 
@@ -10,6 +10,7 @@ Simple phonebook shell in python
 pip install -r requirements.txt
 ```
 4. Run the follows commands to add,edit,list and delete items on the phonebook
+5. The contacts are persisting on the phonebook.json file
 
 ### Help
 ![alt text](screenshots/HELP.PNG "List all possible commands of the application")
