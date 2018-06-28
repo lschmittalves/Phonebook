@@ -12,17 +12,17 @@ pip install -r requirements.txt
 4. Run the follows commands to add,edit,list and delete items on the phonebook
 
 ### Help
-![alt text](screenshots/HELP.png "List all possible commands of the application")
+![alt text](screenshots/HELP.PNG "List all possible commands of the application")
 
 ### List
-![alt text](screenshots/LIST.png "List phonebook items example")
+![alt text](screenshots/LIST.PNG "List phonebook items example")
 
 ### Add
-![alt text](screenshots/ADD.png "Add phonebook item example")
+![alt text](screenshots/ADD.PNG "Add phonebook item example")
 
 ### Edit
-![alt text](screenshots/EDIT.png "Edit phonebook item example")
+![alt text](screenshots/EDIT.PNG "Edit phonebook item example")
 
 ### Delete
-![alt text](screenshots/DELETE.png "Delete phonebook item example")
+![alt text](screenshots/DELETE.PNG "Delete phonebook item example")
 
