@@ -22,6 +22,9 @@ class PhonebookRepository:
     def get_by_phone(self, phone):
         return next((x for x in self.objects if x['phone'] == phone), None)
 
+    def find(self, name, phone):
+        return [x for x in self.objects if x['name'] == name or x['phone'] == phone]
+
     def add(self, phonebook_dict):
         self.objects.append(phonebook_dict)
         self.commit()

@@ -24,14 +24,15 @@ class PhonebookShellController(CementBaseController):
         self.list()
 
     @expose(aliases=['f'], help="This command find a existent item to the phonebook by phone")
-    def edit(self):
-        phonebook_dict = self.__repository.get_by_phone(self.app.pargs.phone)
+    def find(self):
+        phonebook_items = self.__repository.find(self.app.pargs.name, self.app.pargs.phone)
 
-        if not phonebook_dict:
-            self.app.log.info(f'Item with phone number {self.app.pargs.phone} was not found')
+        if len(phonebook_items) <= 0:
+            self.app.log.info(f'No Items was found')
             return
 
-        self.app.log.info(f'Name: {phonebook_dict["name"]} Phone: {phonebook_dict["phone"]}')
+        for phonebook_dict in phonebook_items:
+            self.app.log.info(f'Name: {phonebook_dict["name"]} Phone: {phonebook_dict["phone"]}')
 
     @expose(aliases=['a'], help="This command add a new item to the phonebook")
     def add(self):
@@ -50,8 +51,7 @@ class PhonebookShellController(CementBaseController):
 
         self.__repository.add(phonebook_dict)
 
-        self.app.log.info(f'Item with phone number {self.app.pargs.phone} was add') \
-
+        self.app.log.info(f'Item with phone number {self.app.pargs.phone} was add')
 
     @expose(aliases=['e'], help="This command edit a existent item to the phonebook by phone")
     def edit(self):

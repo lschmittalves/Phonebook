@@ -3,7 +3,7 @@ Simple phonebook shell in python
 
 ## Instructions
 
-1. Intall python
+1. Install python
 2. Clone this repository to your machine
 3. Run 
 ```python
@@ -16,6 +16,9 @@ pip install -r requirements.txt
 
 ### List
 ![alt text](screenshots/LIST.PNG "List phonebook items example")
+
+### Find
+![alt text](screenshots/FIND.PNG "Find phonebook item example")
 
 ### Add
 ![alt text](screenshots/ADD.PNG "Add phonebook item example")
