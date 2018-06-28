@@ -1,6 +1,5 @@
 from cement.core.controller import CementBaseController, expose
 from repository import PhonebookRepository
-from models import PhoneBookItem
 
 
 class PhonebookShellController(CementBaseController):
@@ -9,9 +8,9 @@ class PhonebookShellController(CementBaseController):
         description = "Simple Phonebook"
         arguments = [
             (['-n', '--name'],
-             dict(action='store', help='Name')),
+             dict(action='store', help='Name of the phonebook item')),
             (['-p', '--phone'],
-             dict(action='store', help='Phone')),
+             dict(action='store', help='Phone number of the phonebook item')),
         ]
 
     __repository = {}
@@ -26,13 +25,13 @@ class PhonebookShellController(CementBaseController):
 
     @expose(aliases=['f'], help="This command find a existent item to the phonebook by phone")
     def edit(self):
-        phonebook_item = self.__repository.get_by_phone(self.app.pargs.phone)
+        phonebook_dict = self.__repository.get_by_phone(self.app.pargs.phone)
 
-        if not phonebook_item:
+        if not phonebook_dict:
             self.app.log.info(f'Item with phone number {self.app.pargs.phone} was not found')
             return
 
-        self.app.log.info(f'Name: {phonebook_item.name} Phone: {phonebook_item.phone}')
+        self.app.log.info(f'Name: {phonebook_dict["name"]} Phone: {phonebook_dict["phone"]}')
 
     @expose(aliases=['a'], help="This command add a new item to the phonebook")
     def add(self):
@@ -41,21 +40,29 @@ class PhonebookShellController(CementBaseController):
         if not self.app.pargs.phone:
             self.app.log.warning("Provide the --phone parameter")
 
-        phonebook_item = PhoneBookItem(self.app.pargs.name, self.app.pargs.phone)
+        phonebook_dict = self.__repository.get_by_phone(self.app.pargs.phone)
 
-        self.__repository.add(phonebook_item)
+        if phonebook_dict:
+            self.app.log.info(f'Item with phone number {self.app.pargs.phone} already exists')
+            return
 
-        self.app.log.info(f'Item with phone number {self.app.pargs.phone} was add')
+        phonebook_dict = {'name': self.app.pargs.name, 'phone': self.app.pargs.phone}
+
+        self.__repository.add(phonebook_dict)
+
+        self.app.log.info(f'Item with phone number {self.app.pargs.phone} was add') \
+
 
     @expose(aliases=['e'], help="This command edit a existent item to the phonebook by phone")
     def edit(self):
-        phonebook_item = self.__repository.get_by_phone(self.app.pargs.phone)
+        phonebook_dict = self.__repository.get_by_phone(self.app.pargs.phone)
 
-        if not phonebook_item:
+        if not phonebook_dict:
             self.app.log.info(f'Item with phone number {self.app.pargs.phone} was not found')
             return
 
-        phonebook_item.name = self.app.pargs.name
+        phonebook_dict['name'] = self.app.pargs.name
+        self.__repository.commit()
 
         self.app.log.info(f'Item with phone number {self.app.pargs.phone} was update')
 
@@ -66,8 +73,5 @@ class PhonebookShellController(CementBaseController):
 
     @expose(aliases=['l'], help="This command list the existents itens of the phonebook")
     def list(self):
-        for phonebook_item in self.__repository.objects:
-            self.app.log.info(f'Name: {phonebook_item.name} Phone: {phonebook_item.phone}')
-
-
-
+        for phonebook_dict in self.__repository.objects:
+            self.app.log.info(f'Name: {phonebook_dict["name"]} Phone: {phonebook_dict["phone"]}')

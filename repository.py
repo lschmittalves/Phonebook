@@ -10,30 +10,24 @@ class PhonebookRepository:
 
     def __load(self):
         if not os.path.isfile('phonebook.json'):
-            self.__commit()
+            self.commit()
 
         with open("phonebook.json", "r") as read_file:
             self.objects = json.load(read_file)
 
-    def __commit(self):
+    def commit(self):
         with open("phonebook.json", "w+") as write_file:
             json.dump(self.objects, write_file)
 
     def get_by_phone(self, phone):
-        return next(x for x in self.objects if x.phone == phone)
+        return next((x for x in self.objects if x['phone'] == phone), None)
 
-    def add(self, phonebook_item):
-        self.objects.append(phonebook_item)
-        self.__commit()
-        return
-
-    def edit(self, phonebook_item):
-        existent_phone_item = next(x for x in self.objects if x is phonebook_item)
-        existent_phone_item.name = phonebook_item.name
-        self.__commit()
+    def add(self, phonebook_dict):
+        self.objects.append(phonebook_dict)
+        self.commit()
         return
 
     def delete(self, phone):
-        self.objects[:] = [x for x in self.objects if x.phone != phone]
-        self.__commit()
+        self.objects[:] = [x for x in self.objects if x['phone'] != phone]
+        self.commit()
         return
